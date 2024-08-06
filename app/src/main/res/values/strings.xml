@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">lesKtlAlertDialog</string>
+    <string name="text_name_hint_ET">Введите имя</string>
+    <string name="text_age_hint_ET">Введите возраст</string>
+    <string name="text_save_btn">Сохранить</string>
+    <string name="menu_exit">Выход</string>
+</resources>
