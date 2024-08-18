@@ -26,18 +26,16 @@ class MainActivity : AppCompatActivity() {
         binding.toolbarMain.title = "Список Пользователей"
         binding.toolbarMain.subtitle = "версия 1.2"
         setSupportActionBar(binding.toolbarMain)
-
-
-
         var adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, users)
         binding.usersListLV.adapter = adapter
 
-//        usersViewModel = ViewModelProvider(this@MainActivity)[UserViewModel::class.java]
-//
-//        usersViewModel.currentUsers.observe(this@MainActivity, Observer {
-//            adapter = it.toMutableList()
-//        })
+        usersViewModel = ViewModelProvider(this@MainActivity)[UserViewModel::class.java]
 
+        usersViewModel.currentUsers.observe(this) {
+            adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, it)
+            binding.usersListLV.adapter = adapter
+            adapter.notifyDataSetChanged()
+        }
         binding.saveBTN.setOnClickListener {
             addUser(adapter)
         }
@@ -63,6 +61,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         users.add(User(binding.nameET.text.toString(), binding.ageET.text.toString()))
+        usersViewModel.currentUsers.value = (users.also { usersViewModel.usersViewList = it })
         adapter.notifyDataSetChanged()
         binding.nameET.text.clear()
         binding.ageET.text.clear()

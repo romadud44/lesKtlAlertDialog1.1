@@ -9,17 +9,18 @@ import androidx.appcompat.app.AlertDialog
 class MyDialog {
     companion object {
         fun createDialog(context: Context, adapter: ArrayAdapter<User>) =
-            AdapterView.OnItemClickListener { parent, v, position, id ->
+            AdapterView.OnItemClickListener { _, _, position, _ ->
                 val builder = AlertDialog.Builder(context)
                 builder.setTitle("Внимание!")
                     .setMessage("Удалить пользователя?")
                     .setCancelable(true)
-                    .setNegativeButton("Нет") { dialog, which ->
+                    .setNegativeButton("Нет") { dialog, _ ->
                         dialog.cancel()
                     }
-                    .setPositiveButton("Да") { dialog, which ->
+                    .setPositiveButton("Да") { _, _ ->
                         val user = adapter.getItem(position)
                         adapter.remove(user)
+
                         Toast.makeText(context, "Удален пользоваетль: $user", Toast.LENGTH_LONG)
                             .show()
                     }.create()
