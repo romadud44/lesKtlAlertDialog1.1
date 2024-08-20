@@ -8,7 +8,12 @@ import androidx.appcompat.app.AlertDialog
 
 class MyDialog {
     companion object {
-        fun createDialog(context: Context, adapter: ArrayAdapter<User>) =
+        fun createDialog(
+            context: Context,
+            adapter: ArrayAdapter<User>,
+            usersViewModel: UserViewModel
+        ) =
+
             AdapterView.OnItemClickListener { _, _, position, _ ->
                 val builder = AlertDialog.Builder(context)
                 builder.setTitle("Внимание!")
@@ -18,9 +23,11 @@ class MyDialog {
                         dialog.cancel()
                     }
                     .setPositiveButton("Да") { _, _ ->
-                        val user = adapter.getItem(position)
-                        adapter.remove(user)
-
+                        val user = usersViewModel.usersViewList[position]
+//                        adapter.remove(user)
+                        usersViewModel.usersViewList.removeAt(position)
+                        adapter.notifyDataSetChanged()
+                        usersViewModel.currentUsers.value = usersViewModel.usersViewList
                         Toast.makeText(context, "Удален пользоваетль: $user", Toast.LENGTH_LONG)
                             .show()
                     }.create()

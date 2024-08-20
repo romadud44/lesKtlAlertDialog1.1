@@ -1,7 +1,6 @@
 package com.example.lesktlalertdialog
 
-import android.content.Context
-import android.widget.ArrayAdapter
+
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
